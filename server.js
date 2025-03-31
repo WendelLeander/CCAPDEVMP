@@ -8,7 +8,7 @@ const helpers = require('handlebars-helpers')();
 
 const app = express();
 
-mongoose.connect('mongodb://127.0.0.1:27017/reviewdb');
+mongoose.connect('mongodb+srv://wendelwalterleander:2aacXeDQSEvmqfG6@cluster0.ywgslxz.mongodb.net/reviewdb');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
