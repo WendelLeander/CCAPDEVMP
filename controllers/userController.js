@@ -152,7 +152,7 @@ exports.saveUser2 = async (req, res) => {
             lastname: login.lastname,
             password: login.password,
             username: login.username,
-            role: "reviewer",
+            role: "owner",
             country: country,
             email: login.email,
             description: login.shortDescription,

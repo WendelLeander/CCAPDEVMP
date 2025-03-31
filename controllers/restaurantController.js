@@ -14,9 +14,12 @@ exports.viewRestaurant = async (req, res) => {
     const reviewCount = reviews.length;
     const groupedComments = {};
 
-    reviews.forEach(review => {
-        review.isUser = review.user === user.username;
-    });
+    if (req.session.isLoggedIn){
+        reviews.forEach(review => {
+            review.isUser = review.user === user.username;
+        });
+    }
+
 
     comments.forEach(comment => {
         if (!groupedComments[comment.reviewId]) {
