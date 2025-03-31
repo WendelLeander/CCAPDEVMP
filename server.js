@@ -5,29 +5,35 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const handlebars = require('express-handlebars');
 const helpers = require('handlebars-helpers')();
+const MongoStore = require("connect-mongo");
 
 const app = express();
 
-mongoose.connect('mongodb+srv://wendelwalterleander:2aacXeDQSEvmqfG6@cluster0.ywgslxz.mongodb.net/reviewdb');
+const mongoURI = process.env.MONGODB_URI || "mongodb+srv://wendelwalterleander:2aacXeDQSEvmqfG6@cluster0.ywgslxz.mongodb.net/reviewdb";
+mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
+    .then(() => console.log("MongoDB connected"))
+    .catch(err => console.error("MongoDB connection error:", err));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static("public"));
 
-const THREE_WEEKS = 1000 * 60 * 60 * 24 * 21;
 
-app.use(
-  session({
-    secret: "your_secret_key",
-    resave: false,
-    saveUninitialized: true,
-    cookie: { 
-      secure: false, 
-      maxAge: THREE_WEEKS 
-    }
-  })
-);
+
+app.use(session({
+  secret: "Shabuhay_55",
+  resave: false,
+  saveUninitialized: false,
+  store: MongoStore.create({
+      mongoUrl: mongoURI,
+      collectionName: "sessions"
+  }),
+  cookie: {
+      maxAge: 3 * 7 * 24 * 60 * 60 * 1000, // 3 weeks
+      secure: false // Set to true if using HTTPS
+  }
+}));
 
 app.set('view engine', 'hbs');
 app.engine('hbs', handlebars.engine({
