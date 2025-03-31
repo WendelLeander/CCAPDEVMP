@@ -118,7 +118,7 @@ process.on('SIGTERM', finalClose);  //general termination signal
 process.on('SIGINT', finalClose);   //catches when ctrl + c is used
 process.on('SIGQUIT', finalClose); //catches other termination commands
 
-const port = process.env.PORT | 9090;
+const port = process.env.PORT || 9090;
 app.listen(port, function () {
   console.log('Listening at port ' + port);
 });
