@@ -1,0 +1,49 @@
+<div class="bigbox">
+    {{> header}}
+
+    <div class="body">
+        <div class="white-strip">
+            <h1 style="text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); font-size: 50px;"> 📝 Comment on a Review </h1>
+
+            <div class="review">
+                <div class="review-header">
+                    <div class="user-info">
+                        <img src="{{review.userPhoto}}" alt="User Avatar" class="avatar">
+                        <div>
+                            <a href="/user/view-profile/{{review.user}}">
+                                <strong class="username">{{review.user}}</strong>
+                            </a>
+                            <p style="font-size: small; opacity: 0.8;">{{status}}</p>
+
+                        </div>
+                    </div>
+                    <div class="review-options">
+                        <button onclick="toggleMenu(this)" class="menu-btn">&#x22EE;</button>
+                        <div class="dropdown-menu">
+                        </div>
+                    </div>
+                </div>
+                <div class="rating2">{{#times review.rating}}⭐{{/times}}</div>
+
+                <p class="review-text">{{review.text}}</p>
+
+                {{#if review.media}}
+                <div class="review-media">
+                    <img src="{{review.media}}" alt="Review Image">
+                </div>
+                {{/if}}
+
+                <p class="written-date" style="font-size: small;">{{formatDate review.createdAt}}</p>
+
+            </div>
+
+            <form action="/reviews/{{name}}/{{reviewId}}/owner-respond" method="POST" class="review-form">
+                <label for="text">Your Response:</label>
+                <textarea id="text" name="text" rows="4" required></textarea>
+                <button type="submit" class="submit-btn">Submit Response</button>
+            </form>
+
+        </div>
+    </div>
+    {{> footer}}
+</div>

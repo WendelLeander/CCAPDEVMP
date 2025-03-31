@@ -6,27 +6,62 @@ function toggleProfile() {
   document.getElementById("profileDropdown").classList.toggle("show");
 }
 
-let currentSlide = 0;
-const linkButton = document.getElementById('dynamicLink');
-function showSlide(index) {
-  const slides = document.querySelectorAll('.carousel-image');
-  const totalSlides = slides.length;
-  if (index >= totalSlides) {
-    currentSlide = 0;
-  } else if (index < 0) {
-    currentSlide = totalSlides - 1;
-  } else {
-    currentSlide = index;
+document.addEventListener("DOMContentLoaded", () => {
+  const items = document.querySelectorAll(".carousel-item");
+  let index = 0;
+
+  function showNext() {
+      items.forEach((item, i) => {
+          if (i === index) {
+              item.classList.add("active");
+              
+          } else {
+              item.classList.remove("active");
+              
+          }
+      });
+      index = (index + 1) % items.length;
   }
-  const carouselContainer = document.querySelector('.carousel-container');
-  carouselContainer.style.transform = `translateX(-${currentSlide * 100}%)`;
-  linkButton.href = slides[currentSlide].dataset.link;
+
+  setInterval(showNext, 4000); 
+  showNext(); 
+});
+
+
+
+window.onload = function () {
+  const ratingContainers = document.querySelectorAll(".rating");
+
+  ratingContainers.forEach(container => {
+    const ratingValueElement = container.querySelector("#rating-value");
+    const starsContainer = container.querySelector("#stars");
+
+    if (ratingValueElement && starsContainer) {
+      const ratingValue = parseFloat(ratingValueElement.textContent);
+      generateStars(ratingValue, starsContainer);
+    }
+  });
+};
+
+function generateStars(rating, starsContainer) {
+  starsContainer.innerHTML = ""; // Clear previous stars
+
+  const maxStars = 5;
+  const fullStars = Math.floor(rating);
+  const hasHalfStar = rating % 1 !== 0;
+
+  for (let i = 0; i < fullStars; i++) {
+    starsContainer.innerHTML += '<span class="star filled">★</span>';
+  }
+
+  if (hasHalfStar) {
+    starsContainer.innerHTML += '<span class="star half-filled">★</span>';
+  }
+
+  const remainingStars = maxStars - fullStars - (hasHalfStar ? 1 : 0);
+  for (let i = 0; i < remainingStars; i++) {
+    starsContainer.innerHTML += '<span class="star">★</span>';
+  }
 }
 
-function nextSlide() {
-  showSlide(currentSlide + 1);
-}
 
-function prevSlide() {
-  showSlide(currentSlide - 1);
-}

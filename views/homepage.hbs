@@ -1,32 +1,33 @@
-
 <div class="bigbox">
 
- {{> header}}
+  {{> header}}
 
-    <!-- MAIN BODY -->
-    <div class="body">
-      <h1 class="homePageBite">Bite</h1>
-      <h1 class="homePageBuzz">Buzz</h1>
+  <!-- MAIN BODY -->
+  <div class="body">
+    <h1 class="homePageBite">Bite</h1>
+    <h1 class="homePageBuzz">Buzz</h1>
 
-      <!-- Establishments Carousel -->
-      <div class="establishments-section">
-        <div class="carousel">
-          <div class="carousel-container">
-            {{#each restaurants}}
-            <img src="{{logo}}" class="carousel-image" data-link="/restaurant/{{name}}">
-            {{/each}}
+    <!-- Establishments Carousel -->
+    <div class="restaurant-carousel">
+      {{#each restaurants}}
+      <div class="carousel-item" style="background-image: url('{{this.logo}}');">
+        <div class="carousel-content">
+          <h2>{{this.name}}</h2>
+          <div class="rating">
+            <span>Ratings: </span>
+            <span id="stars"></span>
+            <span id="rating-value">{{this.rating}}</span>
+            <span>/ 5</span>
           </div>
-          <a class="carousel-prev" onclick="prevSlide()">&#10094;</a>
-          <a class="carousel-next" onclick="nextSlide()">&#10095;</a>
+          <p>{{this.description}}</p>
+          <a href="/restaurant/{{this.name}}" class="view-more">View More</a>
         </div>
-
-        <div class="carousel-textbox">
-          <h1>Establishments</h1>
-          <a class="reviewsButton reviewsB" id="dynamicLink" href="/restaurant/{{firstRestaurant.name}}" target="_blank">Reviews</a>
-        </div>
-
       </div>
+      {{/each}}
     </div>
+
+
+  </div>
+</div>
 {{> footer}}
 </div>
-

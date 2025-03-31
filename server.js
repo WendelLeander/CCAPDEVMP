@@ -101,9 +101,7 @@ app.get('/Log-out', function (req, resp) {
 app.use('/restaurant', require('./routes/restaurantRoutes'));
 app.use('/user', require('./routes/userRoutes'));
 app.use('/reviews', require('./routes/reviewRoutes'));
-/*
-app.use('/comments', require('./routes/commentRoutes'));
-*/
+
 
 
 

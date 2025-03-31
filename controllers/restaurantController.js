@@ -1,16 +1,29 @@
 const Restaurant = require('../models/restaurantModel');
 const User = require('../models/userModel');
 const Review = require('../models/reviewModel');
+const Comment = require('../models/commentModel');
 
 
 
 exports.viewRestaurant = async (req, res) => {
     const user = await User.findOne({ _id: req.session.userId }).lean();
-    const restaurant = await Restaurant.findOne({name: req.params.name}).lean();
+    const restaurant = await Restaurant.findOne({ name: req.params.name }).lean();
     const restaurants = await Restaurant.find().lean();
-    const reviews = await Review.find({restaurant: req.params.name}).lean();
-    const name = restaurant.name;
+    const reviews = await Review.find({ restaurant: req.params.name }).lean();
+    const comments = await Comment.find({ reviewId: { $in: reviews.map(r => r._id) } }).lean();
     const reviewCount = reviews.length;
+    const groupedComments = {};
+
+    reviews.forEach(review => {
+        review.isUser = review.user === user.username;
+    });
+
+    comments.forEach(comment => {
+        if (!groupedComments[comment.reviewId]) {
+            groupedComments[comment.reviewId] = [];
+        }
+        groupedComments[comment.reviewId].push(comment);
+    });
 
     let averageRating = 0;
     if (reviews.length > 0) {
@@ -21,20 +34,20 @@ exports.viewRestaurant = async (req, res) => {
     await Restaurant.findOneAndUpdate(
         { name: req.params.name },
         { $set: { rating: averageRating.toFixed(1) } },
-        { new: true } 
+        { new: true }
     );
 
+
     let isOwner = false;
-    if (req.session.isLoggedIn){
-        if (user.username == restaurant.owner){
+    if (req.session.isLoggedIn && restaurant) {
+        if (user.username == restaurant.owner) {
             isOwner = true
         }
     }
 
-        
     try {
-        res.render('restaurant', { 
-            title: name,
+        res.render('restaurant', {
+            title: restaurant.name,
             layout: 'indexReviews',
             user: user,
             isLoggedIn: req.session.isLoggedIn,
@@ -43,19 +56,75 @@ exports.viewRestaurant = async (req, res) => {
             restaurant: restaurant,
             reviewCount: reviewCount,
             reviews: reviews,
-            isOwner
-         });
+            isOwner,
+            comments: groupedComments
+        });
     } catch (err) {
         res.status(500).send('Error retrieving restaurant');
     }
 };
 
-// Edit restaurant details
-exports.editRestaurant = async (req, res) => {
+
+exports.editRestaurantPage = async (req, res) => {
+    const name = req.params.name;
+    const restaurant = await Restaurant.findOne({ name: name }).lean();
+    const restaurants = await Restaurant.find().lean();
     try {
-        await Restaurant.findByIdAndUpdate(req.params.id, req.body);
-        res.redirect(`/restaurants/${req.params.id}`);
+        res.render('editPage', {
+            title: 'Edit Page - ' + name,
+            layout: 'indexReviews',
+            isLoggedIn: req.session.isLoggedIn,
+            userId: req.session.userId,
+            restaurants: restaurants,
+            restaurant
+        });
     } catch (err) {
-        res.status(500).send('Error updating restaurant');
+        res.status(500).send('Error loading profile');
     }
 };
+
+exports.editRestaurant = async (req, res) => {
+    const checker = await Restaurant.findOne({ name: req.params.name }).lean();
+
+    let proceed = true;
+    if (checker.name != req.body.restaurantName) {
+        const existingRestaurant = await Restaurant.findOne({
+            $or: [{ name: req.body.restaurantName }]
+        });
+        if (!existingRestaurant) {
+            proceed = true;
+        } else {
+            proceed = false;
+        }
+    }
+
+    if (proceed) {
+        try {
+            const updateQuery = { name: req.params.name };
+            let restaurant = await Restaurant.findOne(updateQuery);
+            const { restaurantName, restaurantLogo, restaurantLocation, restaurantHours, phone, photos, restaurantDescription } = req.body;
+            restaurant.name = restaurantName;
+            restaurant.location = restaurantLocation;
+            restaurant.phone = phone;
+            restaurant.logo = restaurantLogo;
+            restaurant.photos = photos;
+            restaurant.description = restaurantDescription;
+            restaurant.hours = restaurantHours;
+            await restaurant.save();
+
+            let reviews = await Review.find({restaurant: req.params.name});
+            for (let review of reviews) {
+                review.restaurant = restaurantName;
+                await review.save();  
+            }
+
+            res.redirect(`/restaurant/${restaurant.name}`);
+        } catch (err) {
+            res.status(500).send('Error');
+        }
+    }
+    else {
+        res.status(400).send(`<script>alert("Username or Email already exists!"); window.history.back();</script>`);
+    }
+};
+

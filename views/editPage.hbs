@@ -1,0 +1,37 @@
+<div class="bigbox">
+    {{> header}}
+
+    <div class="body">
+        <div class="white-strip">
+            <h1 style="text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); font-size: 50px;"> 📝 Edit Profile </h1>
+            <form action="/restaurant/{{restaurant.name}}/confirm-edit" method="POST" class="review-form">
+
+                <label for="text">Restaurant Name:</label>
+                <input type="text" id="restaurantName" name="restaurantName" placeholder="Restaurant Name" value="{{restaurant.name}}"required>
+                <label for="text">Logo:</label>
+                <input type="text" id="restaurantLogo" name="restaurantLogo" placeholder="Image Link" value="{{restaurant.logo}}"required>
+                <label for="text">Address:</label>
+                <input type="text" id="restaurantLocation" name="restaurantLocation"
+                    placeholder="Restaurant Location (e.g., Address)" value="{{restaurant.location}}"required>
+                <label for="text">Restaurant Hours</label>
+                <input type="text" id="restaurantHours" name="restaurantHours"
+                    placeholder="Restaurant Hours (e.g., MON - SUN: 9:00 AM - 12:00 PM)" value="{{restaurant.hours}}"required>
+
+                <label for="text">Contact Number</label>
+                <input type="text" id="phone" name="phone" placeholder="Contact Number"  value="{{restaurant.phone}}"required>
+                <label for="restaurantPhotos">Upload Photos of Restaurant:</label>
+                <div class="input-fields" id="photoInputs">
+                    {{#each restaurant.photos}}
+                    <input type="text" name="photos[]" placeholder="Enter image URL" value="{{this}}">
+                    {{/each}}
+                </div>
+                <br><button type="button" onclick="addPhotoInput()">Add More</button><br>
+                <textarea name="restaurantDescription" id="restaurantDescription" placeholder="Restaurant Description"
+                    rows="4">{{restaurant.description}}</textarea>
+                <button type="submit" class="submit-btn">Edit Profile</button>
+            </form>
+
+        </div>
+    </div>
+    {{> footer}}
+</div>

@@ -3,7 +3,7 @@ a {
   }
 
   body {
-    font-family: 'Helvetica Rounded', 'Helvetica', sans-serif;
+    font-family: 'Montserrat', sans-serif;
     margin: 0;
     background-image: url('https://images.pexels.com/photos/1640773/pexels-photo-1640773.jpeg');
     background-position: center;
@@ -17,6 +17,7 @@ a {
   }
 
   .homePageBite {
+    font-family: 'Helvetica Rounded', 'Helvetica', sans-serif;
     font-size: 100px;
     font-weight: bold;
     color: white;
@@ -29,6 +30,7 @@ a {
   }
 
   .homePageBuzz {
+    font-family: 'Helvetica Rounded', 'Helvetica', sans-serif;
     font-size: 100px;
     font-weight: bold;
     color: red;
@@ -170,86 +172,63 @@ a {
     flex-basis: 100%;
   }
 
-  .carousel {
+  .restaurant-carousel {
     position: relative;
-    max-width: 750px;
-    margin-top: 200px;
+    width: 100%;
+    height: 400px;
     overflow: hidden;
-  }
+}
 
-  .carousel-container {
-    display: flex;
-    transition: transform 0.5s ease-in-out;
-
-  }
-
-  .carousel-image {
-    min-width: 100%;
-    height: 700px;
-  }
-
-  .carousel-prev,
-  .carousel-next {
+.carousel-item {
     position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    cursor: pointer;
-    padding: 10px;
-    color: white;
-    font-size: 24px;
-    user-select: none;
-  }
-
-  .carousel-prev {
-    left: 0;
-  }
-
-  .carousel-next {
-    right: 0;
-  }
-
-  .carousel-textbox {
-    margin-top: 200px;
-    height: 700px;
-    max-width: 700px;
-    background-color: #FFFFEF;
-    color: black;
-    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
     align-items: center;
-  }
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+}
+
+.carousel-item.active {
+    opacity: 1;
+    z-index: 1;
+}
+
+.carousel-content {
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    padding: 20px;
+    text-align: center;
+    border-radius: 10px;
+    max-width: 60%;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+}
+
+.view-more {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 10px 20px;
+    background: #ff5722;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.view-more:hover {
+    background: #e64a19;
+}
+
+
 
   .establishments-section {
     display: flex;
   }
 
-  .reviewsButton {
-    background-color: #04AA6D;
-    border: none;
-    color: white;
-    padding: 16px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: flex;
-    font-size: 25px;
-    margin: none;
-    transition-duration: 0.4s;
-    cursor: pointer;
-  }
-
-  .reviewsB {
-    background-color: black;
-    color: white;
-  }
-
-  .reviewsB:hover {
-    background-color: #E40000;
-    color: white;
-    transform: scale(1.2);
-    border-radius: 15px;
-  }
 
   .categories-container {
     text-align: center;
@@ -298,4 +277,47 @@ a {
 
   .show {
     display: block;
+  }
+
+  .rating {
+    display: flex;
+    align-items: center; 
+    justify-content: center; 
+    gap: 5px; 
+    font-size: 15px;
+    font-family: 'Montserrat', sans-serif;
+    width: 100%; 
+    text-align: center;
+  }
+  
+  #stars {
+    display: flex;
+  }
+  
+  .star {
+    color: #ddd; 
+  }
+  
+  .star.filled {
+    color: #e74c3c; 
+  }
+  
+  .star.half-filled {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .star.half-filled::before {
+    content: "★";
+    position: absolute;
+    overflow: hidden;
+    width: 50%;
+    color: #e74c3c; 
+  }
+  
+  .rating-value {
+    font-size: 20px;
+    color: #333;
+    margin-left: 5px;
+    font-weight: bold;
   }

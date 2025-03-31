@@ -12,6 +12,7 @@ router.post('/Register_Additional', userController.saveUser);
 router.post('/Register_Additional2', userController.saveUser2);
 router.get('/profile/:userId', userController.viewProfile);
 router.get('/view-profile/:username', userController.viewOtherProfile);
-router.post('/profile/edit', userController.editProfile);
+router.get('/profile/:userId/edit', userController.editProfilePage);
+router.post('/profile/:userId/confirm-edit', userController.editProfile);
 
 module.exports = router;

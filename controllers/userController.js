@@ -1,5 +1,6 @@
 const User = require('../models/userModel');
 const Restaurant = require('../models/restaurantModel');
+const Review = require('../models/reviewModel');
 
 
 exports.login = async (req, res) => {
@@ -12,7 +13,7 @@ exports.login = async (req, res) => {
         req.session.isLoggedIn = true;
         res.redirect('/');
     } else {
-        res.status(401).send('Invalid credentials');
+        res.status(400).send(`<script>alert("Invalid Credentials!"); window.history.back();</script>`);
     }
 
 };
@@ -71,6 +72,7 @@ exports.registerAddInfo1 = async (req, res) => {
             res.render('registerAddInfo', {
                 layout: 'indexRegister4',
                 title: 'Register - More Info',
+                username: req.body.username
             });
         } catch (err) {
             res.status(500).send('Error');
@@ -90,6 +92,7 @@ exports.registerEstablishment = async (req, res) => {
         res.render('registerAddInfo2', {
             layout: 'indexRegister4',
             title: 'Register - More Info',
+            username:req.session.login.username
         });
     } catch (err) {
         res.status(500).send('Error');
@@ -141,7 +144,7 @@ exports.saveUser2 = async (req, res) => {
     const establishment = req.session.establishment;
     let photo = req.body.photo || "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/340px-Default_pfp.svg.png";
     let country = req.body.country || "N/A";
-  
+
 
     try {
         const loginInstance = new User({
@@ -188,15 +191,22 @@ exports.viewProfile = async (req, res) => {
     const userId = req.params.userId;
     const user = await User.findOne({ _id: userId }).lean();
     const restaurants = await Restaurant.find().lean();
+    const reviews = await Review.find({ user: user.username }).lean();
+    let isUser = false;
+    if (req.session.userId == userId) {
+        isUser = true;
+    }
     try {
-        res.render('profile', { 
-            title: 'User Profile - '+ user.username,
-            layout: 'indexUser',
+        res.render('profile', {
+            title: 'User Profile - ' + user.username,
+            layout: 'indexReviews',
             user: user,
             isLoggedIn: req.session.isLoggedIn,
             userId: req.session.userId,
-            restaurants: restaurants
-         });
+            restaurants: restaurants,
+            reviews: reviews,
+            isUser
+        });
     } catch (err) {
         res.status(500).send('Error loading profile');
     }
@@ -204,7 +214,7 @@ exports.viewProfile = async (req, res) => {
 
 exports.viewOtherProfile = async (req, res) => {
     const username = req.params.username;
-    const user = await User.findOne({ username : username }).lean();
+    const user = await User.findOne({ username: username }).lean();
     try {
         res.redirect(`/user/profile/${user._id}`);
     } catch (err) {
@@ -212,18 +222,43 @@ exports.viewOtherProfile = async (req, res) => {
     }
 };
 
-// Edit Profile
-exports.editProfile = async (req, res) => {
-
-
-
+exports.editProfilePage = async (req, res) => {
+    const userId = req.params.userId;
+    const user = await User.findOne({ _id: userId }).lean();
+    const restaurants = await Restaurant.find().lean();
     try {
-        const { username, email, phone, country } = req.body;
-        await User.updateOne({ username: fixedUser.username }, { email, phone, country });
-        res.redirect('/user/profile');
+        res.render('editProfile', {
+            title: 'Edit Profile - ' + user.username,
+            layout: 'indexReviews',
+            user: user,
+            isLoggedIn: req.session.isLoggedIn,
+            userId: req.session.userId,
+            restaurants: restaurants,
+        });
     } catch (err) {
-        res.status(500).send('Error updating profile');
+        res.status(500).send('Error loading profile');
     }
 };
+
+exports.editProfile = async (req, res) => {
+    try {
+        const updateQuery = { _id: req.params.userId };
+        let user = await User.findOne(updateQuery);
+        const { firstname, lastname, photo, gender, country, shortDescription } = req.body;
+        user.firstname = firstname;
+        user.lastname = lastname;
+        user.gender = gender;
+        user.country = country || "N/A";
+        user.description = shortDescription;
+        user.photo = photo || "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/340px-Default_pfp.svg.png";
+        await user.save();
+        res.redirect(`/user/profile/${user._id}`);
+    } catch (err) {
+        res.status(500).send('Error');
+    }
+    
+};
+
+
 
 

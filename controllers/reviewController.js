@@ -1,6 +1,7 @@
 const Review = require('../models/reviewModel');
 const User = require('../models/userModel');
 const Restaurant = require('../models/restaurantModel');
+const Comment = require('../models/commentModel');
 
 exports.createReviewPage = async (req, res) => {
     const restaurants = await Restaurant.find().lean();
@@ -64,26 +65,84 @@ exports.markReview = async (req, res) => {
     }
 };
 
+exports.editReviewPage = async (req, res) => {
+    const restaurants = await Restaurant.find().lean();
+    const review = await Review.findOne({_id : req.params.reviewId}).lean();
+    try {
+        res.render('editReview', {
+            layout: 'indexReviews',
+            title: req.params.restaurantName+'- Edit Review',
+            isLoggedIn: req.session.isLoggedIn,
+            name: req.params.restaurantName,
+            reviewId: req.params.reviewId,
+            userId: req.session.userId,
+            restaurants,
+            review
+        });
+    } catch (err) {
+        res.status(500).send('Error');
+    }
+};
 
-
-
-
-// Edit a review
 exports.editReview = async (req, res) => {
     try {
-        await Review.findByIdAndUpdate(req.params.reviewId, req.body);
-        res.redirect(`/restaurants/${req.params.restaurantId}`);
+        const updateQuery = { _id: req.params.reviewId };
+        let review = await Review.findOne(updateQuery);
+        const { text, rating, media } = req.body;
+        const mediaUrl = media && media.trim() !== "" ? media : "";
+        review.text = text;
+        review.media = mediaUrl;
+        review.rating = rating;
+        review.status = "(edited)";
+        await review.save();
+        res.redirect(`/restaurant/${req.params.restaurantName}`);
     } catch (err) {
         res.status(500).send('Error editing review');
     }
 };
 
-// View a restaurant with reviews
-exports.viewRestaurantWithReviews = async (req, res) => {
+exports.deleteReview = async (req, res) => {
     try {
-        const restaurant = await Restaurant.findById(req.params.id).populate('reviews');
-        res.render('restaurant', { title: restaurant.name, ...restaurant.toObject() });
+        await Review.deleteOne({ _id: req.params.reviewId });
+        await Comment.deleteMany({reviewId: req.params.reviewId})    
+        res.redirect(`/restaurant/${req.params.restaurantName}`);
     } catch (err) {
-        res.status(500).send('Error loading restaurant');
+        res.status(500).send('Error deleting review');
     }
 };
+
+exports.addCommentPage = async (req, res) => {
+    const restaurants = await Restaurant.find().lean();
+    const review = await Review.findOne({_id : req.params.reviewId}).lean();
+    try {
+        res.render('ownerComment', {
+            layout: 'indexReviews',
+            title: req.params.restaurantName+'- Review Response',
+            isLoggedIn: req.session.isLoggedIn,
+            name: req.params.restaurantName,
+            reviewId: req.params.reviewId,
+            userId: req.session.userId,
+            restaurants,
+            review
+        });
+    } catch (err) {
+        res.status(500).send('Error');
+    }
+};
+
+exports.addComment = async (req, res) => {
+    const user = await User.findOne({ _id: req.session.userId }).lean();
+    try {
+        const comment = new Comment({
+            username: user.username,
+            text: req.body.text,
+            reviewId: req.params.reviewId
+        });
+        await comment.save();
+        res.redirect(`/restaurant/${req.params.restaurantName}`);
+    } catch (err) {
+        res.status(500).send('Error creating review');
+    }
+};
+
+

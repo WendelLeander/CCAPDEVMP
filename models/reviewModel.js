@@ -9,8 +9,7 @@ const reviewSchema = new mongoose.Schema({
     media: { type: String },
     helpful: { type: Number, default: 0 },
     unhelpful: { type: Number, default: 0 },
-    status: { type: String },
-    comments: [{ type: String }]
+    status: { type: String, default: ""},
 }, { timestamps: true });
 
 module.exports = mongoose.model('Review', reviewSchema);

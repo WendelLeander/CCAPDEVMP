@@ -1,0 +1,33 @@
+<div class="bigbox">
+    {{> header}}
+
+    <div class="body">
+        <div class="white-strip">
+            <h1 style="text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); font-size: 50px;"> 📝 Edit Review </h1>
+            <form action="/reviews/{{name}}/{{reviewId}}/resubmit-review" method="POST" class="review-form">
+                
+                <label for="text">Your Review:</label>
+                <textarea id="text" name="text" rows="4" required>{{review.text}}</textarea>
+
+                
+                <label for="media">Image URL (optional):</label>
+                
+                <input type="text" id="media" name="media" placeholder="Paste image URL"{{#if review.media}} value={{review.media}} {{/if}}>
+
+                <label for="rating">Rating:</label>
+                <select id="rating" name="rating" required>
+                    <option value="5">5 - Excellent</option>
+                    <option value="4">4 - Good</option>
+                    <option value="3">3 - Average</option>
+                    <option value="2">2 - Poor</option>
+                    <option value="1">1 - Terrible</option>
+                </select>
+
+                
+                <button type="submit" class="submit-btn">Edit Review</button>
+            </form>
+
+        </div>
+    </div>
+    {{> footer}}
+</div>

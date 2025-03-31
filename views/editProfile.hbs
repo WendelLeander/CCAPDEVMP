@@ -1,0 +1,33 @@
+<div class="bigbox">
+    {{> header}}
+
+    <div class="body">
+        <div class="white-strip">
+            <h1 style="text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); font-size: 50px;"> 📝 Edit Profile </h1>
+            <form action="/user/profile/{{userId}}/confirm-edit" method="POST" class="review-form">
+
+                <label for="text">First Name:</label>
+                <input type="text" id="firstname" name="firstname" placeholder="First Name" value="{{user.firstname}}"required>
+                <label for="text">Last Name:</label>
+                <input type="text" id="lastname" name="lastname" placeholder="Last Name" value="{{user.lastname}}"required>
+                <label for="text">Profile Picture:</label>
+                <input type="text" id="photo" name="photo" placeholder="Image Link (Optional)" value="{{user.photo}}">
+                <label for="text">Gender:</label>
+                <select id="gender" name="gender">
+                    <option value="Prefer not to say">Prefer not to say</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Non-Ninary">Non-Binary</option>
+                    <option value="Other">Other</option>
+                </select>
+                <label for="text">Country &#40;Optional&#41;:</label>
+                <input type="text" id="country" name="country" placeholder="Country (Optional)" value="{{user.country}}">
+                <label for="text">Profile Bio:</label>
+                <textarea name="shortDescription" id="shortDescription" placeholder="Short Description"rows="3">{{user.description}}</textarea >
+                <button type="submit" class="submit-btn">Edit Profile</button>
+            </form>
+
+        </div>
+    </div>
+    {{> footer}}
+</div>

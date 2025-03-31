@@ -33,10 +33,12 @@
                 ⭐ Write a review
             </a>
             {{/if}}
-
-            <button class="edit-page">
+            {{#if isOwner}}
+            <a href="/restaurant/{{restaurant.name}}/edit-page" class="edit-page">
                 ✏️ Edit Page
-            </button>
+            </a>
+            {{/if}}
+
 
             <div class="info-container">
 
@@ -79,14 +81,22 @@
                             <a href="/user/view-profile/{{user}}">
                                 <strong class="username">{{user}}</strong>
                             </a>
+                            <p style="font-size: small; opacity: 0.8;">{{status}}</p>
 
                         </div>
                     </div>
                     <div class="review-options">
                         <button onclick="toggleMenu(this)" class="menu-btn">&#x22EE;</button>
                         <div class="dropdown-menu">
-                            <button class="edit-review">✏️ Edit</button>
-                            <button class="delete-review">🗑️ Delete</button>
+                            {{#if isUser}}
+                            <a href="/reviews/{{../restaurant.name}}/{{_id}}/edit-review" class="edit-review">Edit</a>
+                            <a href="/reviews/{{../restaurant.name}}/{{_id}}/delete-review"
+                                class="delete-review">Delete</a>
+                            {{/if}}
+                            {{#if ../isOwner}}
+                            <a href="/reviews/{{../restaurant.name}}/{{_id}}/owner-comment">Add Comment</a>
+                            {{/if}}
+
                         </div>
                     </div>
                 </div>
@@ -111,6 +121,20 @@
                         👎 Mark as Unhelpful <span class="count">{{unhelpful}}</span>
                     </button>
                 </div>
+
+                {{#if (lookup ../comments _id)}}
+                <div class="comment-section">
+                    <p class="owner-response">Owner's Response:</p>
+                    <div class="comments-list">
+                        <div class="comments-list">
+                            {{#each (lookup ../comments _id)}}
+                            <p><strong>{{this.username}}</strong>: {{this.text}}</p>
+                            {{/each}}
+                        </div>
+                    </div>
+                </div>
+                {{/if}}
+
             </div>
             {{else}}
             <p>No reviews yet. Be the first to leave a review!</p>
