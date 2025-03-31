@@ -10,7 +10,7 @@ const MongoStore = require("connect-mongo");
 const app = express();
 
 const mongoURI = process.env.MONGODB_URI;
-mongoose.connect(mongoURI)
+mongoose.connect(mongoURI + "/reviewdb")
     .then(() => console.log("MongoDB connected"))
     .catch(err => console.error("MongoDB connection error:", err));
 
