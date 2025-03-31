@@ -1,0 +1,107 @@
+body {
+    font-family: 'Helvetica Rounded', 'Helvetica', sans-serif;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.register-container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    text-align: center;
+}
+
+.register-container h2 {
+    margin-bottom: 20px;
+    color: #D71616;
+    font-family: 'Helvetica Rounded', 'Helvetica', sans-serif;
+    font-weight: bold;
+}
+
+.register-container .input-fields {
+    display: flex;
+    flex-direction: column;
+}
+
+.register-container input, 
+.register-container select, 
+.register-container textarea {
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    font-size: 16px;
+}
+
+.register-container button {
+    padding: 12px;
+    background-color: #D71616;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.register-container button:hover {
+    background-color: #A40E0E;
+}
+
+.logout-btn {
+    margin-top: 10px;
+    background-color: transparent;
+    color: #D71616;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.terms {
+    margin-bottom: 10px;
+    font-size: 12px;
+}
+
+.additional-info-container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    text-align: center;
+}
+
+.additional-info-container h2 {
+    margin-bottom: 20px;
+    color: #D71616;
+    font-family: 'Helvetica Rounded', 'Helvetica', sans-serif;
+    font-weight: bold;
+}
+
+.additional-info-container input, 
+.additional-info-container select {
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    font-size: 16px;
+}
+
+.additional-info-container button {
+    padding: 12px;
+    background-color: #D71616;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.additional-info-container button:hover {
+    background-color: #A40E0E;
+}

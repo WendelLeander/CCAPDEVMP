@@ -1,0 +1,100 @@
+/* General body styles */
+body {
+    font-family: 'Helvetica Rounded', 'Helvetica', sans-serif;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding-top: 50px; /* Adds space at the top */
+    box-sizing: border-box;
+    min-height: 100vh; /* Ensure the body takes full height */
+}
+
+/* Container for the registration form */
+.register-container {
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 400px;
+    text-align: center;
+    box-sizing: border-box;
+    position: relative;
+    z-index: 1;
+}
+
+/* Header styling */
+.register-container h2 {
+    color: #D71616;
+    margin-bottom: 20px;
+    font-weight: bold;
+    font-size: 24px;
+    text-align: center;
+}
+
+/* Input fields container */
+.input-fields {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+/* Styling for the text inputs, file inputs, and textareas */
+.input-fields input,
+.input-fields select,
+.input-fields textarea {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+/* Styling for the file upload buttons */
+.input-fields input[type="file"] {
+    padding: 5px;
+    background-color: #f4f4f4;
+    border: 1px solid #ddd;
+}
+
+/* Styling for the terms agreement checkbox */
+.terms {
+    margin-bottom: 10px;
+    font-size: 12px;
+}
+
+/* Register button styling */
+button {
+    padding: 15px 30px;
+    background-color: #D71616;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background-color 0.3s;
+}
+
+/* Button hover effect */
+button:hover {
+    background-color: #b31212;
+}
+
+/* Styling for textarea */
+textarea {
+    resize: vertical;
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 480px) {
+    .additional-info-container {
+        width: 90%;
+        padding: 20px;
+    }
+}

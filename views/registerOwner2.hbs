@@ -1,0 +1,50 @@
+<div class="register-container">
+  <h2>Register as Owner</h2>
+
+  <!-- Form for additional details of establishment owner -->
+  <form action="/user/Register_Restaurant" method="post">
+    <div class="input-fields">
+      <!-- Upload Restaurant Logo -->
+      <label for="restaurantLogo">Upload Restaurant Logo:</label>
+      <input type="text" id="restaurantLogo" name="restaurantLogo" placeholder="Image Link" required>
+
+      <!-- Restaurant Name -->
+      <input type="text" id="restaurantName" name="restaurantName" placeholder="Restaurant Name" required>
+
+      <!-- Restaurant Location -->
+      <input type="text" id="restaurantLocation" name="restaurantLocation"
+        placeholder="Restaurant Location (e.g., Address)" required>
+
+      <!-- Restaurant Hours -->
+      <input type="text" id="restaurantHours" name="restaurantHours"
+        placeholder="Restaurant Hours (e.g., MON - SUN: 9:00 AM - 12:00 PM)" required>
+
+      <!-- Contact Number -->
+      <input type="text" id="phone" name="phone" placeholder="Contact Number" required>
+
+      <!-- Email Address -->
+      <input type="email" id="email" name="email" placeholder="Restaurant Email" required>
+
+      <!-- Upload Restaurant Photos -->
+      <label for="restaurantPhotos">Upload Photos of Restaurant:</label>
+      <div class="input-fields" id="photoInputs">
+        <input type="text" name="photos[]" placeholder="Enter image URL" required>
+      </div>
+      <button type="button" onclick="addPhotoInput()">Add More</button>
+
+      <!-- Restaurant Description -->
+      <textarea name="restaurantDescription" id="restaurantDescription" placeholder="Restaurant Description"
+        rows="4"></textarea>
+
+      <div class="terms">
+        <label>
+          <input type="checkbox" name="terms" required>
+          By proceeding, you agree to BiteBuzz’s Terms of Service and acknowledge BiteBuzz’s Privacy Policy.
+        </label>
+      </div>
+
+      <button type="submit">Save & Continue</button>
+    </div>
+  </form>
+</div>
+{{> footer}}

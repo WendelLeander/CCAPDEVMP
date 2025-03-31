@@ -1,0 +1,32 @@
+
+<div class="bigbox">
+
+ {{> header}}
+
+    <!-- MAIN BODY -->
+    <div class="body">
+      <h1 class="homePageBite">Bite</h1>
+      <h1 class="homePageBuzz">Buzz</h1>
+
+      <!-- Establishments Carousel -->
+      <div class="establishments-section">
+        <div class="carousel">
+          <div class="carousel-container">
+            {{#each restaurants}}
+            <img src="{{logo}}" class="carousel-image" data-link="/restaurant/{{name}}">
+            {{/each}}
+          </div>
+          <a class="carousel-prev" onclick="prevSlide()">&#10094;</a>
+          <a class="carousel-next" onclick="nextSlide()">&#10095;</a>
+        </div>
+
+        <div class="carousel-textbox">
+          <h1>Establishments</h1>
+          <a class="reviewsButton reviewsB" id="dynamicLink" href="/restaurant/{{firstRestaurant.name}}" target="_blank">Reviews</a>
+        </div>
+
+      </div>
+    </div>
+{{> footer}}
+</div>
+

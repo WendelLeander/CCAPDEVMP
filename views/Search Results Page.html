@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>BiteBuzz</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/common/Search Results Style.css">
+
+
+</head>
+
+<body>
+
+    <div class="bigbox">
+
+        <div class="header">
+            
+            <a href="HomePage (Logged In).html" class="logo">Bite</a>
+            <a href="HomePage (Logged In).html" class="logo2">Buzz</a>
+
+            <div class="searchbar">
+                <label for="search"></label>
+                <input type="search" id="search" name="search" style="width: 300px;">
+                <a href="Search Results Page.html" class="searchB"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Magnifying_glass_icon.svg/768px-Magnifying_glass_icon.svg.png" alt="Search" width="17" height="17"></a>
+            </div>
+
+            <div class="dropdown">
+                <button onclick="establishment()" class="dropbtn">Establishments</button>
+                <div id="MYdropdown" class="dropdown-content">
+                    <a href="The Barn.html">The Barn by Borro</a>
+                    <a href="Tagpuan Berde.html">Tagpuan Berde</a>
+                    <a href="La Toca Taqueria.html">La Toca Taqueria</a>
+                    <a href="Piccolino.html">Piccolino Restaurant</a>
+                    <a href="The Good Munch.html">The Good Munch</a>
+                </div>
+            </div>
+
+            <div class="header-right">
+                <a href="Log_in.html">Log In</a>
+            </div>
+
+            <div class="header-right">
+                <a href="Register.html">Register</a>
+            </div>
+
+        </div>
+
+
+    <div class="container">
+        <h2 style="text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">Search Establishments</h2>
+        <input type="text" id="searchInput" class="search-box" placeholder="Search by name or description...">
+        <select id="ratingFilter" class="search-box">
+            <option value="">Filter by Rating</option>
+            <option value="5">5 Stars</option>
+            <option value="4">4 Stars & Up</option>
+            <option value="3">3 Stars & Up</option>
+        </select>
+        <div id="results"></div>
+        
+        <h2 style="text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">Search Reviews</h2>
+        <input type="text" id="reviewSearchInput" class="search-box" placeholder="Search reviews by title or content...">
+        <div id="reviewResults"></div>
+    </div>
+        <script>
+            
+            /* When the user clicks on the button, 
+            toggle between hiding and showing the dropdown content */
+            function establishment() {
+            document.getElementById("MYdropdown").classList.toggle("show");
+            console.log("JavaScript is running");
+            }
+
+            // Close the dropdown if the user clicks outside of it
+            window.onclick = function(event) {
+            if (!event.target.matches('.dropbtn')) {
+                
+                var dropdowns = document.getElementsByClassName("dropdown-content");
+                var i;
+                for (i = 0; i < dropdowns.length; i++) {
+                var openDropdown = dropdowns[i];
+                if (openDropdown.classList.contains('show')) {
+                    openDropdown.classList.remove('show');
+                }
+                }
+            }
+            }
+        </script>
+</body>
+
+</html>

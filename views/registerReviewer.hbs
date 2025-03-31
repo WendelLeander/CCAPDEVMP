@@ -1,0 +1,39 @@
+<div class="register-container">
+  <h2>Register as a Reviewer</h2>
+
+  <!-- Form for registering as a reviewer -->
+  <form action="/user/Register_User" method="post">
+    <div class="input-fields">
+      <input type="text" id="firstname" name="firstname" placeholder="First Name" required>
+      <input type="text" id="lastname" name="lastname" placeholder="Last Name" required>
+      <input type="text" id="username" name="username" placeholder="Username" required>
+      <input type="email" id="email" name="email" placeholder="Email" required>
+      <input type="password" id="password" name="password" placeholder="Password" required
+        pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&_])[A-Za-z\d@$!%*?&_]{8,}$"
+        title="Password must be at least 8 characters long and include an uppercase letter, a lowercase letter, a number, and a special symbol (@$!%*?&_).">
+      <span id="password-error" style="color: red; font-size: 12px; display: none;">
+        Password must be at least 8 characters long and include an uppercase letter, a lowercase letter, a
+        number, and a special symbol (@$!%*?&_).
+      </span>
+      <span id="password-valid" style="color: green; font-size: 12px; display: none;">
+        Password Available!
+      </span>
+      <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm Password" required>
+      <span id="confirm-password-message" style="font-size: 12px; display: none;"></span>
+
+
+      <textarea name="shortDescription" id="shortDescription" placeholder="Short Description" rows="3"></textarea>
+
+      <div class="terms">
+        <label>
+          <input type="checkbox" name="terms" required>
+          By proceeding, you agree to BiteBuzz’s Terms of Service and acknowledge BiteBuzz’s Privacy
+          Policy.
+        </label>
+      </div>
+
+      <button type="submit">Register</button>
+    </div>
+  </form>
+</div>
+

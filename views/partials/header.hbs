@@ -1,0 +1,40 @@
+<div class="header">
+  <a href="/" class="logo">Bite</a>
+  <a href="/" class="logo2">Buzz</a>
+
+  <div class="searchbar">
+    <label for="search"></label>
+    <input type="search" id="search" name="search" style="width: 300px;">
+    <a href="Search Results Page.html" class="searchB">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Magnifying_glass_icon.svg/768px-Magnifying_glass_icon.svg.png" alt="Search" width="17" height="17">
+    </a>
+  </div>
+
+  <div class="dropdown">
+    <button onclick="myFunction()" class="dropbtn">Establishments</button>
+    <div id="myDropdown" class="dropdown-content">
+      {{#each restaurants}}
+        <a href="/restaurant/{{name}}">{{name}}</a>
+      {{/each}}
+    </div>
+  </div>
+
+  {{#if isLoggedIn}}  <!-- If the user is logged in -->
+    <div class="dropdown">
+      <button onclick="myFunction2()" class="dropbtn">
+        <img src="https://cdn-icons-png.flaticon.com/512/8847/8847137.png" alt="Profile" width="30" height="30">
+      </button>
+      <div id="myDropdown2" class="dropdown-content">
+        <a href="/user/profile/{{userId}}">Profile</a>
+        <a href="/Log-out">Log Out</a>
+      </div>
+    </div>
+  {{else}}  <!-- If the user is logged out -->
+    <div class="header-right">
+      <a href="/Log-in">Log In</a>
+    </div>
+    <div class="header-right">
+      <a href="/register">Register</a>
+    </div>
+  {{/if}}
+</div>
