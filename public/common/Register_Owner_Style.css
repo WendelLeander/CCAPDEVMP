@@ -1,7 +1,6 @@
 /* General body styles */
 body {
     font-family: 'Helvetica Rounded', 'Helvetica', sans-serif;
-    background-color: #f4f4f4;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -9,6 +8,10 @@ body {
     padding-top: 50px; /* Adds space at the top */
     box-sizing: border-box;
     min-height: 100vh; /* Ensure the body takes full height */
+    background-image: url('https://i.ibb.co/fdmhcGvJ/background.png');
+    background-size: cover;
+    background-position: center;
+    width: 100vw;
 }
 
 /* Container for the registration form */

@@ -46,37 +46,42 @@ function nextSlide() {
 function prevSlide() {
   showSlide(currentSlide - 1);
 }
-// Edit establishment description
+
 
 window.onload = function () {
-  const ratingValueElement = document.getElementById("rating-value");
-  const ratingValue = parseFloat(ratingValueElement.textContent); // Get rating from HTML
+  const ratingContainers = document.querySelectorAll(".rating");
 
-  generateStars(ratingValue);
+  ratingContainers.forEach(container => {
+    const ratingValueElement = container.querySelector("#rating-value");
+    const starsContainer = container.querySelector("#stars");
+
+    if (ratingValueElement && starsContainer) {
+      const ratingValue = parseFloat(ratingValueElement.textContent);
+      generateStars(ratingValue, starsContainer);
+    }
+  });
 };
 
-function generateStars(rating) {
-  const starsContainer = document.getElementById("stars");
-  starsContainer.innerHTML = ""; // Clear previous stars
+function generateStars(rating, starsContainer) {
+  starsContainer.innerHTML = ""; 
 
   const maxStars = 5;
   const fullStars = Math.floor(rating);
   const hasHalfStar = rating % 1 !== 0;
 
   for (let i = 0; i < fullStars; i++) {
-      starsContainer.innerHTML += '<span class="star filled">★</span>';
+    starsContainer.innerHTML += '<span class="star filled">★</span>';
   }
 
   if (hasHalfStar) {
-      starsContainer.innerHTML += '<span class="star half-filled">★</span>';
+    starsContainer.innerHTML += '<span class="star half-filled">★</span>';
   }
 
   const remainingStars = maxStars - fullStars - (hasHalfStar ? 1 : 0);
   for (let i = 0; i < remainingStars; i++) {
-      starsContainer.innerHTML += '<span class="star">★</span>';
+    starsContainer.innerHTML += '<span class="star">★</span>';
   }
 }
-
 
 
 document.querySelector(".review-form").addEventListener("submit", function(event) {

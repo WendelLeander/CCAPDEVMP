@@ -1,0 +1,68 @@
+<div class="bigbox">
+    {{> header}}
+
+    <div class="body">
+        <div class="white-strip">
+            <h2 style="text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); font-size: 50px;"> 🔍 Find an Establishment</h2>
+
+            <div class="search-container">
+                <form action="/restaurant/search/find-restaurant2" method="GET" class="search-form">
+
+                    <input type="text" name="query" placeholder="Search establishments..." class="search-input">
+
+
+                    <label for="rating-filter">Filter by rating:</label>
+                    <select name="rating" id="rating-filter" class="filter-dropdown">
+                        <option value="">All Ratings</option>
+                        <option value="5">5</option>
+                        <option value="4">4 and above</option>
+                        <option value="3">3 and above</option>
+                        <option value="2">2 and above</option>
+                    </select>
+
+
+                    <label for="sort-by">Sort by:</label>
+                    <select name="sort" id="sort-by" class="sort-dropdown">
+                        <option value="a-z">A - Z</option>
+                        <option value="z-a">Z - A</option>
+                        <option value="rating-asc">Rating (Ascending)</option>
+                        <option value="rating-desc">Rating (Descending)</option>
+                    </select>
+
+
+                    <button type="submit" class="search-btn">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Magnifying_glass_icon.svg/768px-Magnifying_glass_icon.svg.png"
+                            alt="Search" width="17" height="17">
+                    </button>
+                </form>
+
+
+
+
+
+                {{#each results}}
+                <div class="establishment-container">
+                    <a href="/restaurant/{{name}}" class="establishment-link">
+                        <img src="{{logo}}" alt="Sample Restaurant Logo" class="establishment-logo">
+                        <div class="establishment-details">
+                            <h3 class="establishment-name">{{name}}</h3>
+                            <p class="establishment-address">{{location}}</p>
+                            <div class="rating">
+                                <span id="rating-value" style="display: none;">{{rating}}</span>
+                                <span id="stars"></span>
+                            </div>
+                            <p class="establishment-contact">📞 {{phone}}</p>
+                        </div>
+                    </a>
+                </div>
+                {{else}}
+                <p>No results</p>
+                {{/each}}
+
+
+            </div>
+            
+        </div>
+    </div>
+{{> footer}}
+</div>

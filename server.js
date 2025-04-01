@@ -6,6 +6,7 @@ const bodyParser = require('body-parser');
 const handlebars = require('express-handlebars');
 const helpers = require('handlebars-helpers')();
 const MongoStore = require("connect-mongo");
+const argon2 = require('argon2');
 
 const app = express();
 
@@ -30,8 +31,8 @@ app.use(session({
       collectionName: "sessions"
   }),
   cookie: {
-      maxAge: 3 * 7 * 24 * 60 * 60 * 1000, // 3 weeks
-      secure: false // Set to true if using HTTPS
+      // maxAge: 3 * 7 * 24 * 60 * 60 * 1000, // To set session age to 3 weeks
+      secure: false 
   }
 }));
 

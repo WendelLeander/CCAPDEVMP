@@ -18,9 +18,12 @@
       <span id="password-valid" style="color: green; font-size: 12px; display: none;">
         Password Available!
       </span>
+      
       <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm Password" required>
       <span id="confirm-password-message" style="font-size: 12px; display: none;"></span>
-
+      <div style="margin-bottom: 10px;">
+        <input type="checkbox" id="show-password" onclick="togglePassword()"> Show Password
+      </div>
 
       <textarea name="shortDescription" id="shortDescription" placeholder="Short Description" rows="3"></textarea>
 
@@ -36,4 +39,3 @@
     </div>
   </form>
 </div>
-

@@ -145,4 +145,14 @@ exports.addComment = async (req, res) => {
     }
 };
 
-
+exports.verifyReview = async (req, res) => {
+    try {
+        const updateQuery = { _id: req.params.reviewId };
+        let review = await Review.findOne(updateQuery);
+        review.verified = true;
+        await review.save();
+        res.redirect(`/restaurant/${req.params.restaurantName}`);
+    } catch (err) {
+        res.status(500).send('Error verifying review');
+    }
+};

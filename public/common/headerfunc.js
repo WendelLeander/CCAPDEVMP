@@ -18,3 +18,10 @@ window.onclick = function (event) {
         }
     }
 }
+
+function searchRestaurant() {
+    const searchInput = document.getElementById("search").value;
+    if (searchInput.trim() !== "") {
+        window.location.href = `/restaurant/search/find-restaurant?query=${encodeURIComponent(searchInput)}`;
+    }
+  }

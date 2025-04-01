@@ -197,9 +197,6 @@ body {
 }
 
 
-
-
-
 .white-strip {
   width: 100%;
   background-color: white;
@@ -208,6 +205,7 @@ body {
   box-sizing: border-box;
   text-align: center;
   background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 1), transparent);
+  min-height: 500px;
 }
 
 .description {
@@ -620,4 +618,132 @@ body {
   word-wrap: break-word;
   overflow-wrap: break-word;
   white-space: normal;
+}
+
+.search-container {
+  background: #fff;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  max-width: 80%;
+  min-height: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.search-form {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: white;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 800px;
+  margin: auto;
+}
+
+.search-input {
+  flex: 2;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.filter-dropdown,
+.sort-dropdown {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.search-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+}
+
+.search-btn img {
+  width: 20px;
+  height: 20px;
+}
+
+.establishment-container {
+  width: 90%;
+  max-width: 800px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  margin: 20px auto;
+  transition: transform 0.2s ease-in-out;
+}
+
+.establishment-container:hover {
+  transform: scale(1.02);
+}
+
+.establishment-link {
+  text-decoration: none;
+  color: black;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.establishment-logo {
+  width: 80px;
+  height: 80px;
+  border-radius: 10px;
+  object-fit: cover;
+  margin-right: 15px;
+}
+
+.establishment-details {
+  flex: 1;
+}
+
+.establishment-name {
+  font-size: 20px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.establishment-address {
+  font-size: 14px;
+  color: #555;
+  margin: 5px 0;
+}
+
+
+.establishment-contact {
+  font-size: 14px;
+  color: #333;
+}
+
+.verify-status {
+  align-items: left; 
+  text-align: left;
+  font-size: 15px;
+  margin-top: 5px;
+}
+
+.review-search-form {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: white;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 250px;
+  margin: auto;
 }

@@ -1,11 +1,24 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>{{title}}</title>
-    <link href="/common/footer style.css" rel="stylesheet" />
-    <link href="/common/User_Profile_Style.css" rel="stylesheet" />
-  </head>
-  <body>
-{{{body}}}
-  </body>
+
+<head>
+  <title>{{title}}</title>
+  <link href="/common/footer style.css" rel="stylesheet" />
+  <link href="/common/User_Profile_Style.css" rel="stylesheet" />
+</head>
+
+<body>
+  {{{body}}}
+  <script>
+    function togglePassword() {
+      let passwordField = document.getElementById("password");
+      if (passwordField.type === "password") {
+        passwordField.type = "text";
+      } else {
+        passwordField.type = "password";
+      }
+    }
+  </script>
+</body>
+
 </html>

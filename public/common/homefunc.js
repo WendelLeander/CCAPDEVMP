@@ -44,7 +44,7 @@ window.onload = function () {
 };
 
 function generateStars(rating, starsContainer) {
-  starsContainer.innerHTML = ""; // Clear previous stars
+  starsContainer.innerHTML = ""; 
 
   const maxStars = 5;
   const fullStars = Math.floor(rating);

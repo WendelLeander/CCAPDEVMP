@@ -89,3 +89,17 @@ document.getElementById("confirm-password").addEventListener("blur", function ()
     confirmPasswordMessage.style.display = "none";
 });
 
+function togglePassword() {
+    let passwordField = document.getElementById("password");
+    let passwordField2 = document.getElementById("confirm-password");
+    if (passwordField.type === "password" && passwordField2.type === "password") {
+      passwordField.type = "text";
+      passwordField2.type = "text";
+    } else {
+      passwordField.type = "password";
+      passwordField2.type = "password";
+    }
+  }
+
+
+

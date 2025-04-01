@@ -1,21 +1,33 @@
 const User = require('../models/userModel');
 const Restaurant = require('../models/restaurantModel');
 const Review = require('../models/reviewModel');
-
+const argon2 = require('argon2');
 
 exports.login = async (req, res) => {
+    try {
+        const { username, password } = req.body;
 
-    const searchQuery = { username: req.body.username, password: req.body.password };
-    let login = await User.findOne(searchQuery);
 
-    if (login != undefined && login._id != null) {
-        req.session.userId = login._id;
-        req.session.isLoggedIn = true;
-        res.redirect('/');
-    } else {
-        res.status(400).send(`<script>alert("Invalid Credentials!"); window.history.back();</script>`);
+        let user = await User.findOne({ username });
+
+        if (!user) {
+            return res.status(400).send(`<script>alert("Invalid Credentials!"); window.history.back();</script>`);
+        }
+
+
+        const isValidPassword = await argon2.verify(user.password, password);
+
+        if (isValidPassword) {
+            req.session.userId = user._id;
+            req.session.isLoggedIn = true;
+            return res.redirect('/');
+        } else {
+            return res.status(400).send(`<script>alert("Invalid Credentials!"); window.history.back();</script>`);
+        }
+    } catch (error) {
+        console.error("Login Error:", error);
+        return res.status(500).send("Internal Server Error");
     }
-
 };
 
 exports.register1 = (req, res) => {
@@ -108,13 +120,13 @@ exports.saveUser = async (req, res) => {
     const login = req.session.login;
     let photo = req.body.photo || "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/340px-Default_pfp.svg.png";
     let country = req.body.country || "N/A";
-
+    let encrypted_pass = await argon2.hash(login.password)
 
     try {
         const loginInstance = new User({
             firstname: login.firstname,
             lastname: login.lastname,
-            password: login.password,
+            password: encrypted_pass,
             username: login.username,
             role: "reviewer",
             country: country,
@@ -144,13 +156,13 @@ exports.saveUser2 = async (req, res) => {
     const establishment = req.session.establishment;
     let photo = req.body.photo || "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/340px-Default_pfp.svg.png";
     let country = req.body.country || "N/A";
-
+    let encrypted_pass = await argon2.hash(login.password)
 
     try {
         const loginInstance = new User({
             firstname: login.firstname,
             lastname: login.lastname,
-            password: login.password,
+            password: encrypted_pass,
             username: login.username,
             role: "owner",
             country: country,

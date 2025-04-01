@@ -2,77 +2,9 @@
     {{> header}}
 
     <div class="body">
-        <div class="carousel">
-            <div class="carousel-container">
-                {{#each restaurant.photos}}
-                <img src="{{this}}" class="carousel-image">
-                {{/each}}
-            </div>
-            <a class="carousel-prev" onclick="prevSlide()">&#10094;</a>
-            <a class="carousel-next" onclick="nextSlide()">&#10095;</a>
-        </div>
-
-        <br>
         <div class="white-strip">
-            <h1 style="text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); font-size: 50px;"> {{restaurant.name}} </h1>
+            <h2 style="text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); font-size: 40px;"> 🔍 Find a Review </h2>
 
-            <div class="rating">
-                <span>Ratings: </span>
-                <span id="stars"></span>
-                <span id="rating-value">{{restaurant.rating}}</span>
-                <span>/5</span>
-                <p style="font-size: small;">&#40;{{reviewCount}} reviews&#41;</p>
-            </div>
-
-            {{#if isLoggedIn}}
-            <a href="/reviews/{{restaurant.name}}/create-review" class="write-review">
-                ⭐ Write a review
-            </a>
-            {{else}}
-            <a href="#" class="write-review" onclick="alert('You must be logged in to write a review!'); return false;">
-                ⭐ Write a review
-            </a>
-            {{/if}}
-            {{#if isOwner}}
-            <a href="/restaurant/{{restaurant.name}}/edit-page" class="edit-page">
-                ✏️ Edit Page
-            </a>
-            {{/if}}
-
-
-            <div class="info-container">
-
-                <div class="info-item">
-                    <span class="icon">📞</span>
-                    <span class="text">{{restaurant.phone}}</span>
-                </div>
-
-                <div class="info-item">
-                    <span class="title">Get Directions</span>
-                    <span class="text">{{restaurant.location}}</span>
-                    <span class="icon">🧭</span>
-                </div>
-
-                <div class="info-item">
-                    <span class="title">Restaurant Hours</span>
-                    <span class="text">{{restaurant.hours}}</span>
-                    <span class="icon">⏰</span>
-                </div>
-
-                <div class="info-item">
-                    <span class="title">📧</span>
-                    <span class="text">{{restaurant.email}}</span>
-                </div>
-
-
-            </div>
-            <div class="description">
-                <h2> About </h2>
-                <p>{{restaurant.description}}</p>
-            </div>
-
-            <h2>Recommended Reviews</h2>
-            {{#if reviews}}
             <form action="/restaurant/{{restaurant.name}}/search-reviews" method="GET" class="review-search-form">
                     <input type="text" name="reviewquery" placeholder="Search reviews..." class="search-input">
                     <button type="submit" class="search-btn">
@@ -80,7 +12,8 @@
                             alt="Search" width="17" height="17">
                     </button>
                 </form>
-            {{/if}}
+                <h3> Results: </h3>
+
             {{#each reviews}}
             <div class="review">
                 <div class="review-header">
@@ -122,8 +55,6 @@
                 </div>
                 {{/if}}
 
-
-
                 <p class="written-date" style="font-size: small;">{{formatDate createdAt}}</p>
                 <div class="review-actions">
                     <button class="helpful" onclick="vote('{{_id}}', 'helpful', this)">
@@ -146,21 +77,10 @@
                     </div>
                 </div>
                 {{/if}}
-
             </div>
             {{else}}
-            <p>No reviews yet. Be the first to leave a review!</p>
+            <p>No reviews found...</p>
             {{/each}}
-
-            {{#if isLoggedIn}}
-            <a href="/reviews/{{restaurant.name}}/create-review" class="write-review">
-                ⭐ Write a review
-            </a>
-            {{else}}
-            <a href="#" class="write-review" onclick="alert('You must be logged in to write a review!'); return false;">
-                ⭐ Write a review
-            </a>
-            {{/if}}
         </div>
     </div>
     {{> footer}}

@@ -10,6 +10,7 @@ const reviewSchema = new mongoose.Schema({
     helpful: { type: Number, default: 0 },
     unhelpful: { type: Number, default: 0 },
     status: { type: String, default: ""},
+    verified: { type: Boolean, default: false},
 }, { timestamps: true });
 
 module.exports = mongoose.model('Review', reviewSchema);

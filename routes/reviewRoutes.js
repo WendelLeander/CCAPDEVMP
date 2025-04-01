@@ -9,5 +9,6 @@ router.post('/:restaurantName/:reviewId/resubmit-review', reviewController.editR
 router.get('/:restaurantName/:reviewId/delete-review', reviewController.deleteReview);
 router.get('/:restaurantName/:reviewId/owner-comment', reviewController.addCommentPage);
 router.post('/:restaurantName/:reviewId/owner-respond', reviewController.addComment);
+router.get('/:restaurantName/:reviewId/owner-verify', reviewController.verifyReview);
 router.post('/:id/vote', reviewController.markReview);
 module.exports = router;
