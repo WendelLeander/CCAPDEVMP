@@ -99,6 +99,17 @@ app.get('/Log-out', function (req, resp) {
   });
 });
 
+app.get('/about-us', async function (req, resp) {
+  const restaurants = await Restaurant.find().lean();
+  resp.render('aboutUs', {
+    layout: 'indexAbout',
+    title: 'About Us',
+    restaurants: restaurants,
+    isLoggedIn: req.session.isLoggedIn,
+    userId: req.session.userId,
+  });
+});
+
 app.use('/restaurant', require('./routes/restaurantRoutes'));
 app.use('/user', require('./routes/userRoutes'));
 app.use('/reviews', require('./routes/reviewRoutes'));
